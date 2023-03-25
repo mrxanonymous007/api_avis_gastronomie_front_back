@@ -2,6 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+const path = require('path');
+
+// Définir les routes de l'API
+const userRoutes = require('./routes/user');
+const saucesRoutes = require('./routes/sauces');
+
 // Parser les données POST en JSON
 app.use(express.json());
 
@@ -24,8 +30,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Définir les routes de l'API
-const userRoutes = require('./routes/user');
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', saucesRoutes);
 
 module.exports = app;
