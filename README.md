@@ -27,6 +27,7 @@ In `cd backend/`, `server.js` l:16 - modify `YOUR_PORT_NUMBER` by your real port
 
 ## Development server
 
-Run `ng serve` for frontend server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.<br>
-Run `nodemon server` for backend server. The app will automatically reload if you change any of the source files.
+Go to `cd frontend/` and run `ng serve` in frontend folder. Navigate to `http://localhost:4200/`.<br>
+Go to `cd backend/` and run `nodemon server` in backend folder.<br>
+The app will automatically reload if you change any of the source files.
 
