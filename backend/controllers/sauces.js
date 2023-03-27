@@ -6,8 +6,7 @@ exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     const sauce = new Sauce({
         ...sauceObject,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename
-            }`,
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
     });
     sauce
         .save()
@@ -40,7 +39,7 @@ exports.modifySauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then((sauce) => {
             if (sauceObject.userId !== req.auth.userId) {
-                return res.status(401).send('Requète non autorisée')
+                return res.status(401).send('Requête non autorisée')
             } else {
                 const filename = sauce.imageUrl.split("/images/")[1];
                 if (req.file) {
@@ -64,7 +63,7 @@ exports.deleteSauce = (req, res, next) => {
                 return res.status(404).json({ error: new Error('Objet non trouvé!') })
             }
             if (sauce.userId !== req.auth.userId) {
-                return res.status(401).json({ error: new Error('Requète non autorisée') })
+                return res.status(401).json({ error: new Error('Requête non autorisée') })
             } else {
                 const filename = sauce.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
@@ -77,80 +76,3 @@ exports.deleteSauce = (req, res, next) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-//ajout d'un "like" sur une sauce
-exports.likedSauce = (req, res, next) => {
-    Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-        if (req.body.like == 1) {
-            let likeArray = sauce.usersLiked;
-            let likeIndex = likeArray.indexOf(req.body.userId);
-            if (likeIndex == -1) {
-                Sauce.updateOne(
-                    { _id: req.params.id },
-                    { $push: { usersLiked: req.body.userId } }
-                ).then(() => {
-                    if (sauce.likes != null) {
-                        let likedSauce = sauce.likes;
-                        likedSauce++;
-                        Sauce.updateOne({ _id: req.params.id }, { likes: likedSauce })
-                            .then(() => res.status(200).json({ message: "Like Ajouté !" }))
-                            .catch((error) => res.status(400).json({ error }));
-                    } else {
-                        Sauce.updateOne({ _id: req.params.id }, { $set: { likes: 1 } })
-                            .then(() => res.status(200).json({ message: "Like Créé !" }))
-                            .catch((error) => res.status(400).json({ error }));
-                    }
-                });
-            }
-        }
-
-        //ajout d'un dislike d'une sauce
-        if (req.body.like == -1) {
-            let dislikeArray = sauce.usersDisliked;
-            let dislikeIndex = dislikeArray.indexOf(req.body.userId);
-            if (dislikeIndex == -1) {
-                Sauce.updateOne(
-                    { _id: req.params.id },
-                    { $push: { usersDisliked: req.body.userId } })
-                    .then(() => {
-                        if (sauce.dislikes != null) {
-                            let dislikedSauce = sauce.dislikes;
-                            dislikedSauce++;
-                            Sauce.updateOne({ _id: req.params.id }, { dislikes: dislikedSauce })
-                                .then(() => res.status(200).json({ message: "Dislike Ajouté !" }))
-                                .catch((error) => res.status(400).json({ error }));
-                        } else {
-                            Sauce.updateOne({ _id: req.params.id }, { $set: { dislikes: 1 } })
-                                .then(() => res.status(200).json({ message: "Dislike Créé !" }))
-                                .catch((error) => res.status(400).json({ error }));
-                        }
-                    })
-            }
-        }
-
-        //possibilité d'enlever un "like" ou un "dislike"
-        if (req.body.like == 0) {
-            let sauceLike = sauce.likes;
-            let sauceDislike = sauce.dislikes;
-
-            let dislikeArray = sauce.usersDisliked;
-            let dislikeIndex = dislikeArray.indexOf(req.body.userId);
-            if (dislikeIndex !== -1) {
-                dislikeArray.splice(dislikeIndex, 1);
-                sauceDislike--;
-            }
-            let likeArray = sauce.usersLiked;
-            let likeIndex = likeArray.indexOf(req.body.userId);
-            if (likeIndex !== -1) {
-                likeArray.splice(likeIndex, 1);
-                sauceLike--;
-            }
-            Sauce.updateOne(
-                { _id: req.params.id },
-                { usersDisliked: dislikeArray, usersLiked: likeArray, likes: sauceLike, dislikes: sauceDislike }
-            )
-                .then(() => res.status(200).json({ message: "Like/Dislike retiré" }))
-                .catch((error) => res.status(400).json({ error }));
-        }
-    })
-        .catch((error) => res.status(400).json({ error }));;
-};
