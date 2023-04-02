@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-
 const path = require('path');
 
 // Définir les routes de l'API
@@ -12,7 +11,7 @@ const saucesRoutes = require('./routes/sauces');
 app.use(express.json());
 
 // Connecter à la base de données MongoDB
-mongoose.connect(`mongodb+srv://<username>:<password>@<clustername>.olmtncp.mongodb.net/?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://<USERNAME>:<PASSWORD>@<CLUSTERNAME>.olmtncp.mongodb.net/?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

@@ -77,7 +77,7 @@ exports.deleteSauce = (req, res, next) => {
 
 exports.likeSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-        //Ajout Like
+        //Ajout de like sur une sauce
         if (req.body.like == 1) {
             let likeArray = sauce.usersLiked;
             let likeIndex = likeArray.indexOf(req.body.userId);
@@ -100,7 +100,7 @@ exports.likeSauce = (req, res, next) => {
                 });
             }
         }
-        //Ajout Dislike
+        //Ajout de dislike sur une sauce
         if (req.body.like == -1) {
             let dislikeArray = sauce.usersDisliked;
             let dislikeIndex = dislikeArray.indexOf(req.body.userId);
@@ -123,7 +123,7 @@ exports.likeSauce = (req, res, next) => {
                     })
             }
         }
-        //Retrait Like ou Dislike
+        //Like ou dislike enlever par un utilisateur
         if (req.body.like == 0) {
             let sauceLike = sauce.likes;
             let sauceDislike = sauce.dislikes;
