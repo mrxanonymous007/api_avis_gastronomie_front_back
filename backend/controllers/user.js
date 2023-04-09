@@ -33,58 +33,32 @@ exports.signup = (req, res, next) => {
                 });
         })
         .catch(error => {
-            res.status(500).json({
-                error: error
-            });
+            res.status(500).json({ error: error });
         });
 };
 
 //Connexion d'un utilisateur
 exports.login = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    User.findOne({ email: email })
+    User.findOne({ email: req.body.email })
         .then(user => {
-            const user = JSON.parse(sessionStorage.getItem('userId'));
-
             if (!user) {
-                return res.status(401).json({
-                    error: 'Adresse e-mail ou mot de passe incorrect.'
-                });
+                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
             }
-
-            bcrypt.compare(password, user.password)
+            bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({
-                            message: 'Adresse e-mail ou mot de passe incorrect.'
-                        });
+                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
                     }
-
-                    const token = jwt.sign(
-                        { userId: user._id },
-                        'RANDOM_TOKEN_SECRET',
-                        { expiresIn: '24h' }
-                    );
-
-                    sessionStorage.setItem('userId', user._id);
-                    sessionStorage.setItem('token', token);
-
                     res.status(200).json({
                         userId: user._id,
-                        token: token
+                        token: jwt.sign(
+                            { userId: user._id },
+                            'RANDOM_TOKEN_SECRET',
+                            { expiresIn: '24h' }
+                        )
                     });
                 })
-                .catch(error => {
-                    res.status(500).json({
-                        error: error.message
-                    });
-                });
+                .catch(error => res.status(500).json({ error }));
         })
-        .catch(error => {
-            res.status(500).json({
-                error: error.message
-            });
-        });
+        .catch(error => res.status(500).json({ error }));
 };

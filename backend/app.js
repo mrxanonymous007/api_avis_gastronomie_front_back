@@ -11,7 +11,7 @@ const saucesRoutes = require('./routes/sauces');
 app.use(express.json());
 
 // Connecter à la base de données MongoDB
-mongoose.connect(`mongodb+srv://<USERNAME>:<PASSWORD>@<CLUSTERNAME>.olmtncp.mongodb.net/?retryWrites=true&w=majority`, {
+mongoose.connect(YOUR_MONGODB_LINK_DATABASE_HERE, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
