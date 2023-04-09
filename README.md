@@ -6,6 +6,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Before testing this project, please install https://nodejs.org/fr on your computer if you don't have it.
 
+## Install npm packages
+
+Go to `cd frontend/` and install all dependencies by taping `npm install`
+Go to `cd backend/` and install all dependencies by taping `npm install`
+
 ## Install Nodemon
 Go to `cd backend/` and install nodemon with this command : `npm install -g nodemon`
 
