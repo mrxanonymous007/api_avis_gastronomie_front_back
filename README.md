@@ -8,7 +8,7 @@ Before testing this project, please install https://nodejs.org/fr on your comput
 
 ## Install npm packages
 
-Go to `cd frontend/` and install all dependencies by taping `npm install`
+Go to `cd frontend/` and install all dependencies by taping `npm install`<br>
 Go to `cd backend/` and install all dependencies by taping `npm install`
 
 ## Install Nodemon
