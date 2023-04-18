@@ -1,6 +1,7 @@
+//importation des packages
 const mongoose = require('mongoose');
 
-//modèle de schéma : SAUCES
+//création du schéma de données pour le modèle SAUCES de la base de donnée
 const sauceSchema = new mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },

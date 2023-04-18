@@ -1,9 +1,14 @@
+//importation des packages
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
 
+//importation de sauce depuis le dossier controllers pour l'api des sauces
 const sauceController = require('../controllers/sauces');
+
+//importation de auth pour l'authentification
+const auth = require('../middleware/auth');
+//importation de multer-config contenant la config de multer
+const multer = require('../middleware/multer-config');
 
 //Définition des routes pour les endpoints des sauces
 router.post('/', auth, multer, sauceController.createSauce);

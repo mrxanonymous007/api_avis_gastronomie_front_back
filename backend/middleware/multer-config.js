@@ -1,5 +1,5 @@
+//importation du package
 const multer = require('multer');
-
 
 //Définition d'un dictionnaire des fichiers acceptés
 const MIME_TYPES = {
