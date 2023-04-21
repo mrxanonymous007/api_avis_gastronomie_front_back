@@ -16,7 +16,7 @@ const normalizePort = val => {
 };
 
 //Définition de notre port 
-const port = normalizePort(process.env.PORT || YOUR_PORT_NUMBER);
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 //Gestion des erreurs en cas de problème de connexion, de privilèges insuffisants ou port déjà utilisé
