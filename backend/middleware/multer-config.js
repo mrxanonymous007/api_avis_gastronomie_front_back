@@ -1,6 +1,17 @@
 //importation du package
 const multer = require('multer');
 
+const fs = require('fs');
+const path = require('path');
+
+//création d'un dossier images au moment de l'ajout
+fs.mkdir(path.join(__dirname, '/../images'), (err) => {
+    if (err) {
+        return console.log(err)
+    }
+    console.log('Dossier créé avec succès!')
+})
+
 //Définition d'un dictionnaire des fichiers acceptés
 const MIME_TYPES = {
     'image/jpg': 'jpg',
