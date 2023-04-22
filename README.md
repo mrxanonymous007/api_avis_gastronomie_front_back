@@ -14,9 +14,6 @@ Go to `cd backend/` and install all dependencies by taping `npm install --force`
 ## Install Nodemon
 Go to `cd backend/` and install nodemon with this command : `npm install -g nodemon`
 
-## Image directory
-In `cd backend/`, please create an empty `images` folder manually.
-
 ## Create your mongoDB link
 
 Paste your `mongoDb link` and put your `username`,`password` and your `clustername` in `cd backend/` `app.js` l:15.
