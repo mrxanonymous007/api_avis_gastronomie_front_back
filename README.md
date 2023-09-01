@@ -19,7 +19,7 @@ Construire une API sécurisée avec ses models, controllers et routes. Les utili
 ## Langages utilisés : 
 Node.js / Express.js / MongoDB
 
-+ Plus d'informations sur mon portfolio : https://camillelinan.com/project/Hot%20Takes
++ Plus d'informations sur mon portfolio : https://mrxanonymous.github.io/rishisawock
 
 # HotTakes
 
